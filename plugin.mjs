@@ -236,6 +236,20 @@ function errorRulesFor(ruleNames) {
 }
 
 /**
+ * Baseline recommended rules.
+ *
+ * @remarks
+ * This plugin is repo-oriented, but we still expose a conventional
+ * `recommended` preset. Keep it conservative and broadly applicable.
+ * For the full monorepo guardrails, prefer `configs.repo`.
+ */
+const recommendedRuleNames = /** @type {const} */ ([
+    "no-regexp-v-flag",
+    "require-ensure-error-in-catch",
+    "require-error-cause-in-catch",
+]);
+
+/**
  * Ensures the uptime-watcher plugin is registered on a flat-config item.
  *
  * @param {FlatConfig} config
@@ -256,9 +270,9 @@ function withUptimeWatcherPlugin(config) {
  * Repo-scoped configs (the ones actually used by this monorepo).
  *
  * @remarks
- * These config entries intentionally include `files`/`ignores` so consumers
- * can `...uptimeWatcherPlugin.configs.repo` without re-declaring all the
- * scoping in `eslint.config.mjs`.
+ * These config entries intentionally include `files`/`ignores` so consumers can
+ * `...uptimeWatcherPlugin.configs.repo` without re-declaring all the scoping in
+ * `eslint.config.mjs`.
  */
 const repoCoreConfigs = /** @type {readonly FlatConfig[]} */ ([
     withUptimeWatcherPlugin({
@@ -440,7 +454,7 @@ const unscopedAllConfig = withUptimeWatcherPlugin({
 
 const unscopedRecommendedConfig = withUptimeWatcherPlugin({
     name: "uptime-watcher:recommended",
-    rules: allRules,
+    rules: errorRulesFor(recommendedRuleNames),
 });
 
 const unscopedDefaultConfig = withUptimeWatcherPlugin({
@@ -455,7 +469,7 @@ const flatAllConfig = withUptimeWatcherPlugin({
 
 const flatRecommendedConfig = withUptimeWatcherPlugin({
     name: "uptime-watcher:flat/recommended",
-    rules: allRules,
+    rules: errorRulesFor(recommendedRuleNames),
 });
 
 const flatDefaultConfig = withUptimeWatcherPlugin({
