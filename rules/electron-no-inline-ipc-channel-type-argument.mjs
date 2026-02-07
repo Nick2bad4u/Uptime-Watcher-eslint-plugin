@@ -6,6 +6,7 @@
  * @file Rule: electron-no-inline-ipc-channel-type-argument
  */
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 import { NORMALIZED_ELECTRON_DIR } from "../_internal/repo-paths.mjs";
 
@@ -28,7 +29,7 @@ export const electronNoInlineIpcChannelTypeArgumentRule = {
      * }} context
      */
     create(context) {
-        const rawFilename = context.getFilename(),
+        const rawFilename = getContextFilename(context),
             normalizedFilename = normalizePath(rawFilename);
 
         if (

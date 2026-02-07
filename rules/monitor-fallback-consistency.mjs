@@ -10,6 +10,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import * as ts from "typescript";
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 import { SHARED_DIR } from "../_internal/repo-paths.mjs";
 
@@ -229,7 +230,7 @@ export const monitorFallbackConsistencyRule = {
      * }} context
      */
     create(context) {
-        const filename = normalizePath(context.getFilename());
+        const filename = normalizePath(getContextFilename(context));
         if (filename === "<input>" || !filename.endsWith("/src/constants.ts")) {
             return {};
         }

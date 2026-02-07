@@ -6,6 +6,10 @@
  * @file Rule: renderer-no-ipc-renderer-usage
  */
 
+import {
+    getContextFilename,
+    getContextSourceCode,
+} from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 import { NORMALIZED_SRC_DIR } from "../_internal/repo-paths.mjs";
 
@@ -28,15 +32,15 @@ export const rendererNoIpcRendererUsageRule = {
      *     sourceCode?: any;
      *     report: (descriptor: {
      *         messageId: string;
-     *         node: import("@typescript-eslint/utils").TSESTree.Node;
+        *         node: any;
      *         data?: Record<string, unknown>;
      *     }) => void;
      * }} context
      */
     create(context) {
-        const rawFilename = context.getFilename(),
+        const rawFilename = getContextFilename(context),
             normalizedFilename = normalizePath(rawFilename),
-            sourceCode = context.sourceCode ?? context.getSourceCode();
+            sourceCode = getContextSourceCode(context);
 
         if (
             normalizedFilename === "<input>" ||
@@ -51,18 +55,26 @@ export const rendererNoIpcRendererUsageRule = {
 
         /**
          * @param {string} name
-         * @param {import("@typescript-eslint/utils").TSESTree.Node} node
+         * @param {any} node
          */
         function hasLocalBinding(name, node) {
-            let scope = sourceCode.getScope(node);
-            while (scope) {
+            let scope = sourceCode.getScope(
+                /** @type {import("estree").Node} */ (node)
+            );
+
+            while (true) {
                 const variable = scope.set.get(name);
                 if (variable && variable.defs.length > 0) {
                     return true;
                 }
-                scope = scope.upper;
+
+                const upper = scope.upper;
+                if (!upper) {
+                    return false;
+                }
+
+                scope = upper;
             }
-            return false;
         }
 
         /**

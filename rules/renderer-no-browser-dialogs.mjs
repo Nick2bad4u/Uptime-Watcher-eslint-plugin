@@ -6,6 +6,10 @@
  * @file Rule: renderer-no-browser-dialogs
  */
 
+import {
+    getContextFilename,
+    getContextSourceCode,
+} from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 import { NORMALIZED_SRC_DIR } from "../_internal/repo-paths.mjs";
 
@@ -31,9 +35,9 @@ export const rendererNoBrowserDialogsRule = {
      * }} context
      */
     create(context) {
-        const rawFilename = context.getFilename(),
+        const rawFilename = getContextFilename(context),
             normalizedFilename = normalizePath(rawFilename),
-            sourceCode = context.sourceCode ?? context.getSourceCode();
+            sourceCode = getContextSourceCode(context);
 
         if (
             normalizedFilename === "<input>" ||
@@ -48,15 +52,23 @@ export const rendererNoBrowserDialogsRule = {
          * @param {any} node
          */
         function hasLocalBinding(name, node) {
-            let scope = sourceCode.getScope(node);
-            while (scope) {
+            let scope = sourceCode.getScope(
+                /** @type {import("estree").Node} */ (node)
+            );
+
+            while (true) {
                 const variable = scope.set.get(name);
                 if (variable && variable.defs.length > 0) {
                     return true;
                 }
-                scope = scope.upper;
+
+                const upper = scope.upper;
+                if (!upper) {
+                    return false;
+                }
+
+                scope = upper;
             }
-            return false;
         }
 
         /**

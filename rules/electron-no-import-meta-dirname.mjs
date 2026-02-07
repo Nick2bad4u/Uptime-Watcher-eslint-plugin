@@ -6,6 +6,7 @@
  * @file Rule: electron-no-import-meta-dirname
  */
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 
 /**
@@ -29,7 +30,7 @@ export const electronNoImportMetaDirnameRule = {
      * }} context
      */
     create(context) {
-        const rawFilename = context.getFilename();
+        const rawFilename = getContextFilename(context);
         const normalizedFilename = normalizePath(rawFilename);
 
         if (

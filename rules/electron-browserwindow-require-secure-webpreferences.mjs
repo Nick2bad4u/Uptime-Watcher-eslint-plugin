@@ -6,6 +6,7 @@
  * @file Rule: electron-browserwindow-require-secure-webpreferences
  */
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 
 const REQUIRED_WEB_PREFERENCES = [
@@ -35,7 +36,7 @@ export const electronBrowserwindowRequireSecureWebpreferencesRule = {
      * }} context
      */
     create(context) {
-        const rawFilename = context.getFilename();
+        const rawFilename = getContextFilename(context);
         const normalizedFilename = normalizePath(rawFilename);
 
         if (

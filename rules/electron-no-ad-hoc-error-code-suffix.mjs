@@ -5,6 +5,7 @@
  * @file Rule: electron-no-ad-hoc-error-code-suffix
  */
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 import { NORMALIZED_ELECTRON_DIR } from "../_internal/repo-paths.mjs";
 
@@ -25,7 +26,7 @@ export const electronNoAdHocErrorCodeSuffixRule = {
      * }} context
      */
     create(context) {
-        const filename = normalizePath(context.getFilename());
+        const filename = normalizePath(getContextFilename(context));
 
         if (!filename.startsWith(`${NORMALIZED_ELECTRON_DIR}/services/`)) {
             return {};

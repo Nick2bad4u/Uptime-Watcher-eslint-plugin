@@ -6,6 +6,7 @@
  * @file Rule: electron-dialog-require-automation-bypass
  */
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 
 const DIALOG_METHOD_NAMES = new Set([
@@ -44,7 +45,7 @@ export const electronDialogRequireAutomationBypassRule = {
      * }} context
      */
     create(context) {
-        const rawFilename = context.getFilename();
+        const rawFilename = getContextFilename(context);
         const normalizedFilename = normalizePath(rawFilename);
 
         if (

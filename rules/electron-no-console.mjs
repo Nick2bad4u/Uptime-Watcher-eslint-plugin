@@ -6,6 +6,7 @@
  * @file Rule: electron-no-console
  */
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 
 /**
@@ -19,7 +20,7 @@ export const electronNoConsoleRule = {
      * }} context
      */
     create(context) {
-        const filename = normalizePath(context.getFilename());
+        const filename = normalizePath(getContextFilename(context));
 
         if (
             !filename.includes("/electron/") ||

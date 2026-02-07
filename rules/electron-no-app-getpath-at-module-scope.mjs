@@ -6,6 +6,7 @@
  * @file Rule: electron-no-app-getpath-at-module-scope
  */
 
+import { getContextFilename } from "../_internal/eslint-context-compat.mjs";
 import { normalizePath } from "../_internal/path-utils.mjs";
 
 const DISALLOWED_METHOD_NAMES = new Set([
@@ -35,7 +36,7 @@ export const electronNoAppGetpathAtModuleScopeRule = {
      * }} context
      */
     create(context) {
-        const rawFilename = context.getFilename();
+        const rawFilename = getContextFilename(context);
         const normalizedFilename = normalizePath(rawFilename);
 
         if (
