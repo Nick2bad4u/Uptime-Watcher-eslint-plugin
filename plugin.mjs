@@ -31,10 +31,13 @@ import { electronPreferReadProcessEnvRule as electronPreferReadProcessEnvironmen
 import { electronPreloadNoDirectIpcRendererUsageRule } from "./rules/electron-preload-no-direct-ipc-renderer-usage.mjs";
 import { electronPreloadNoInlineIpcChannelConstantRule } from "./rules/electron-preload-no-inline-ipc-channel-constant.mjs";
 import { electronSyncNoLocalAsciiDigitsRule } from "./rules/electron-sync-no-local-ascii-digits.mjs";
+import { ipcHandlerSignatureMatchesValidatorRule } from "./rules/ipc-handler-signature-matches-validator.mjs";
+import { loggerContextJsonSerializableRule } from "./rules/logger-context-json-serializable.mjs";
 import { loggerNoErrorInContextRule } from "./rules/logger-no-error-in-context.mjs";
 import { monitorFallbackConsistencyRule } from "./rules/monitor-fallback-consistency.mjs";
 import { noCallIdentifiersRule } from "./rules/no-call-identifiers.mjs";
 import { noDeprecatedExportsRule } from "./rules/no-deprecated-exports.mjs";
+import { noDoubleAssertionOutsideTestsRule } from "./rules/no-double-assertion-outside-tests.mjs";
 import { noInlineIpcChannelTypeLiteralsRule } from "./rules/no-inline-ipc-channel-type-literals.mjs";
 import { noLocalErrorNormalizersRule } from "./rules/no-local-error-normalizers.mjs";
 import { noLocalIdentifiersRule } from "./rules/no-local-identifiers.mjs";
@@ -43,6 +46,7 @@ import { noOneDriveRule } from "./rules/no-onedrive.mjs";
 import { noRedeclareSharedContractInterfacesRule } from "./rules/no-redeclare-shared-contract-interfaces.mjs";
 import { noRegexpVFlagRule } from "./rules/no-regexp-v-flag.mjs";
 import { preferAppAliasRule } from "./rules/prefer-app-alias.mjs";
+import { preferEnsureErrorReturnTypeRule } from "./rules/prefer-ensure-error-return-type.mjs";
 import { preferSharedAliasRule } from "./rules/prefer-shared-alias.mjs";
 import { preferTryGetErrorCodeRule } from "./rules/prefer-try-get-error-code.mjs";
 import { preloadNoLocalIsPlainObjectRule } from "./rules/preload-no-local-is-plain-object.mjs";
@@ -64,6 +68,7 @@ import { sharedTypesNoLocalIsPlainObjectRule } from "./rules/shared-types-no-loc
 import { storeActionsRequireFinallyResetRule } from "./rules/store-actions-require-finally-reset.mjs";
 import { testNoMockReturnValueConstructorsRule } from "./rules/test-no-mock-return-value-constructors.mjs";
 import { tsdocNoConsoleExampleRule } from "./rules/tsdoc-no-console-example.mjs";
+import { typedEventbusPayloadAssignableRule } from "./rules/typed-eventbus-payload-assignable.mjs";
 
 const DEFAULT_RULE_DOCS_URL_BASE =
     "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules";
@@ -130,9 +135,14 @@ const uptimeWatcherPlugin = /** @type {any} */ ({
         "electron-sync-no-local-ascii-digits":
             electronSyncNoLocalAsciiDigitsRule,
         "logger-no-error-in-context": loggerNoErrorInContextRule,
+        "ipc-handler-signature-matches-validator":
+            ipcHandlerSignatureMatchesValidatorRule,
+        "logger-context-json-serializable": loggerContextJsonSerializableRule,
         "monitor-fallback-consistency": monitorFallbackConsistencyRule,
         "no-call-identifiers": noCallIdentifiersRule,
         "no-deprecated-exports": noDeprecatedExportsRule,
+        "no-double-assertion-outside-tests":
+            noDoubleAssertionOutsideTestsRule,
         "no-inline-ipc-channel-type-literals":
             noInlineIpcChannelTypeLiteralsRule,
         "no-local-error-normalizers": noLocalErrorNormalizersRule,
@@ -143,6 +153,7 @@ const uptimeWatcherPlugin = /** @type {any} */ ({
             noRedeclareSharedContractInterfacesRule,
         "no-regexp-v-flag": noRegexpVFlagRule,
         "prefer-app-alias": preferAppAliasRule,
+        "prefer-ensure-error-return-type": preferEnsureErrorReturnTypeRule,
         "prefer-shared-alias": preferSharedAliasRule,
         "prefer-try-get-error-code": preferTryGetErrorCodeRule,
         "preload-no-local-is-plain-object": preloadNoLocalIsPlainObjectRule,
@@ -168,6 +179,7 @@ const uptimeWatcherPlugin = /** @type {any} */ ({
             storeActionsRequireFinallyResetRule,
         "test-no-mock-return-value-constructors":
             testNoMockReturnValueConstructorsRule,
+        "typed-eventbus-payload-assignable": typedEventbusPayloadAssignableRule,
         "tsdoc-no-console-example": tsdocNoConsoleExampleRule,
     },
 });

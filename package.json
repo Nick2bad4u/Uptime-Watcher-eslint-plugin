@@ -40,14 +40,18 @@
     "scripts": {
         "lint": "eslint ../.. --config ./eslint.config.mjs --ext .js,.cjs,.mjs,.ts,.mts,.cts,.tsx",
         "lint:fix": "eslint ../.. --config ./eslint.config.mjs --ext .js,.cjs,.mjs,.ts,.mts,.cts,.tsx --fix",
-        "test": "vitest run",
-        "test:watch": "vitest"
+        "test": "cd ../../../../ && vitest run --config vitest.linting.config.ts",
+        "test:watch": "cd ../../../../ && vitest --config vitest.linting.config.ts"
     },
     "dependencies": {
-        "eslint": "^9.39.2"
+        "eslint": "^9.39.2",
+        "ts-extras": "^0.17.0",
+        "type-fest": "^5.4.4"
     },
     "devDependencies": {
         "@typescript-eslint/parser": "^8.55.0",
+        "@typescript-eslint/rule-tester": "^8.55.0",
+        "@typescript-eslint/utils": "^8.55.0",
         "typescript": "^5.9.3",
         "vitest": "^4.0.18"
     },
