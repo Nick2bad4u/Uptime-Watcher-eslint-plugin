@@ -23,7 +23,11 @@ export const rendererNoDirectElectronLogRule = {
     /**
      * @param {{
      *     getFilename: () => any;
-     *     report: (arg0: { data: { module: any }; messageId: string; node: any }) => void;
+     *     report: (arg0: {
+     *         data: { module: any };
+     *         messageId: string;
+     *         node: any;
+     *     }) => void;
      * }} context
      */
     create(context) {
@@ -80,17 +84,17 @@ export const rendererNoDirectElectronLogRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "disallow importing electron-log/renderer outside the renderer logger modules.",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/renderer-no-direct-electron-log.md",
         },
-        schema: [],
         messages: {
             useRendererLogger:
                 "Do not import {{module}} here. Use src/services/logger.ts (or inject a logger) to keep logging centralized.",
         },
+        schema: [],
+        type: "problem",
     },
 };

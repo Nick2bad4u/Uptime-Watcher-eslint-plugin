@@ -15,7 +15,11 @@
 export const noRedeclareSharedContractInterfacesRule = {
     /**
      * @param {{
-     *     report: (arg0: { node: any; messageId: string; data: { name: any } }) => void;
+     *     report: (arg0: {
+     *         node: any;
+     *         messageId: string;
+     *         data: { name: any };
+     *     }) => void;
      * }} context
      */
     create(context) {
@@ -45,17 +49,17 @@ export const noRedeclareSharedContractInterfacesRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "disallow redeclaring canonical shared contract interfaces; import them from @shared instead",
             recommended: true,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/no-redeclare-shared-contract-interfaces.md",
         },
-        schema: [],
         messages: {
             noRedeclare:
                 "Do not redeclare '{{name}}'. Import it from @shared instead.",
         },
+        schema: [],
+        type: "problem",
     },
 };

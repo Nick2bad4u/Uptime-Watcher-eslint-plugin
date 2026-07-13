@@ -50,8 +50,7 @@ export const electronNoInlineIpcChannelLiteralRule = {
         }
 
         /**
-         * @param {
-         *     | import("@typescript-eslint/utils").TSESTree.Expression
+         * @param {import("@typescript-eslint/utils").TSESTree.Expression
          *     | import("@typescript-eslint/utils").TSESTree.SpreadElement
          *     | null
          *     | undefined} argument
@@ -68,14 +67,10 @@ export const electronNoInlineIpcChannelLiteralRule = {
                 return true;
             }
 
-            if (
+            return (
                 argument.type === "TemplateLiteral" &&
                 argument.expressions.length === 0
-            ) {
-                return true;
-            }
-
-            return false;
+            );
         }
 
         return {
@@ -105,17 +100,17 @@ export const electronNoInlineIpcChannelLiteralRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "disallow inline string literals as IPC channel names in registerStandardizedIpcHandler calls.",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/electron-no-inline-ipc-channel-literal.md",
         },
-        schema: [],
         messages: {
             useSharedChannelConstant:
                 "Do not inline IPC channel strings. Use a shared *_CHANNELS constant (from @shared/types/preload) or another imported channel constant.",
         },
+        schema: [],
+        type: "problem",
     },
 };

@@ -21,7 +21,11 @@ export const preferSharedAliasRule = {
     /**
      * @param {{
      *     getFilename: () => any;
-     *     report: (arg0: { fix: (fixer: any) => any; messageId: string; node: any }) => void;
+     *     report: (arg0: {
+     *         fix: (fixer: any) => any;
+     *         messageId: string;
+     *         node: any;
+     *     }) => void;
      * }} context
      */
     create(context) {
@@ -49,7 +53,7 @@ export const preferSharedAliasRule = {
                     return;
                 }
 
-                const importPath = String(node.source.value);
+                const importPath = node.source.value;
                 if (!importPath.startsWith(".")) {
                     return;
                 }
@@ -98,12 +102,11 @@ export const preferSharedAliasRule = {
                      *     replaceText: (arg0: any, arg1: string) => any;
                      * }} fixer
                      */
-                    fix(fixer) {
-                        return fixer.replaceText(
+                    fix: (fixer) =>
+                        fixer.replaceText(
                             node.source,
                             `${quote}${aliasPath}${quote}`
-                        );
-                    },
+                        ),
                     messageId: "useAlias",
                     node: node.source,
                 });
@@ -112,7 +115,6 @@ export const preferSharedAliasRule = {
     },
 
     meta: {
-        type: "suggestion",
         docs: {
             description:
                 "require @shared/* import aliases instead of relative shared paths.",
@@ -120,10 +122,11 @@ export const preferSharedAliasRule = {
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/prefer-shared-alias.md",
         },
         fixable: "code",
-        schema: [],
         messages: {
             useAlias:
                 "Import from shared modules via the @shared alias instead of relative paths.",
         },
+        schema: [],
+        type: "suggestion",
     },
 };

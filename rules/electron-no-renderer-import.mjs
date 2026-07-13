@@ -24,7 +24,11 @@ export const electronNoRendererImportRule = {
     /**
      * @param {{
      *     getFilename: () => any;
-     *     report: (arg0: { data: { module: any }; messageId: string; node: any }) => void;
+     *     report: (arg0: {
+     *         data: { module: any };
+     *         messageId: string;
+     *         node: any;
+     *     }) => void;
      * }} context
      */
     create(context) {
@@ -91,20 +95,19 @@ export const electronNoRendererImportRule = {
              */
             CallExpression(node) {
                 if (
-                    node.callee.type === "Identifier" &&
-                    node.callee.name === "require" &&
-                    node.arguments.length > 0
+                    node.callee.type !== "Identifier" ||
+                    node.callee.name !== "require" ||
+                    node.arguments.length === 0
                 ) {
-                    const [firstArgument] = node.arguments;
-                    if (
-                        firstArgument?.type === "Literal" &&
-                        typeof firstArgument.value === "string"
-                    ) {
-                        handleModuleSpecifier(
-                            firstArgument,
-                            firstArgument.value
-                        );
-                    }
+                    return;
+                }
+
+                const [firstArgument] = node.arguments;
+                if (
+                    firstArgument?.type === "Literal" &&
+                    typeof firstArgument.value === "string"
+                ) {
+                    handleModuleSpecifier(firstArgument, firstArgument.value);
                 }
             },
 
@@ -135,17 +138,17 @@ export const electronNoRendererImportRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "disallow Electron runtime modules from importing renderer bundles",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/electron-no-renderer-import.md",
         },
-        schema: [],
         messages: {
             noRendererImport:
                 'Electron runtime code must not import from "{{module}}". Use shared contracts or preload bridges instead.',
         },
+        schema: [],
+        type: "problem",
     },
 };

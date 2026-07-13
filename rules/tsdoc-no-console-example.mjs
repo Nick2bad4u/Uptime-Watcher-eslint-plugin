@@ -15,7 +15,10 @@ export const tsdocNoConsoleExampleRule = {
     /**
      * @param {{
      *     getSourceCode: () => any;
-     *     report: (arg0: { loc: { end: any; start: any }; messageId: string }) => void;
+     *     report: (arg0: {
+     *         loc: { end: any; start: any };
+     *         messageId: string;
+     *     }) => void;
      * }} context
      */
     create(context) {
@@ -69,17 +72,17 @@ export const tsdocNoConsoleExampleRule = {
     },
 
     meta: {
-        type: "suggestion",
         docs: {
             description:
                 "disallow console.* in TSDoc example code blocks; prefer structured logger.",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/tsdoc-no-console-example.md",
         },
-        schema: [],
         messages: {
             replaceConsole:
                 "Replace console usage in examples with the structured logger.",
         },
+        schema: [],
+        type: "suggestion",
     },
 };

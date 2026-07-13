@@ -31,7 +31,11 @@ export const storeActionsRequireFinallyResetRule = {
      *     getFilename: () => string;
      *     sourceCode: any;
      *     getSourceCode: () => any;
-     *     report: (arg0: { data: { flag: any }; messageId: string; node: any }) => void;
+     *     report: (arg0: {
+     *         data: { flag: any };
+     *         messageId: string;
+     *         node: any;
+     *     }) => void;
      * }} context
      */
     create(context) {
@@ -65,7 +69,8 @@ export const storeActionsRequireFinallyResetRule = {
          *
          * @param {unknown} argument
          *
-         * @returns {import("@typescript-eslint/utils").TSESTree.ObjectExpression | null}
+         * @returns {import("@typescript-eslint/utils").TSESTree.ObjectExpression
+         *     | null}
          */
         function getSetObjectExpression(argument) {
             if (
@@ -245,7 +250,7 @@ export const storeActionsRequireFinallyResetRule = {
                         }
 
                         const name = getPropertyName(property);
-                        if (!name || !name.startsWith("is")) {
+                        if (!name?.startsWith("is")) {
                             continue;
                         }
 
@@ -296,7 +301,7 @@ export const storeActionsRequireFinallyResetRule = {
 
             walk(node.body, state);
 
-            for (const [flag, reportNode] of state.flagsSet.entries()) {
+            for (const [flag, reportNode] of state.flagsSet) {
                 if (!state.flagsResetInFinally.has(flag)) {
                     context.report({
                         data: { flag },
@@ -315,17 +320,17 @@ export const storeActionsRequireFinallyResetRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "require store busy flags (isX) set to true to be reset to false in a finally block",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/store-actions-require-finally-reset.md",
         },
-        schema: [],
         messages: {
             missingFinallyReset:
                 "Busy flag '{{flag}}' is set to true but is not reset to false inside a finally block in this action.",
         },
+        schema: [],
+        type: "problem",
     },
 };

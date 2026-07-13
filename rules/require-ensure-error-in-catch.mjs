@@ -81,7 +81,7 @@ export const requireEnsureErrorInCatchRule = {
             }
 
             const firstArgument = call.arguments?.[0];
-            return Boolean(
+            return (
                 firstArgument?.type === "Identifier" &&
                 firstArgument.name === caughtName
             );
@@ -122,7 +122,9 @@ export const requireEnsureErrorInCatchRule = {
         /**
          * @typedef {{
          *     ensureErrorCall: boolean;
-         *     firstPropertyAccess: import("@typescript-eslint/utils").TSESTree.MemberExpression | null;
+         *     firstPropertyAccess:
+         *         | import("@typescript-eslint/utils").TSESTree.MemberExpression
+         *         | null;
          *     name: string;
          * }} EnsureErrorState
          */
@@ -204,17 +206,17 @@ export const requireEnsureErrorInCatchRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "require ensureError() before accessing properties on caught errors",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/require-ensure-error-in-catch.md",
         },
-        schema: [],
         messages: {
             requireEnsureError:
                 "Caught error '{{name}}' is used with property access; normalize it first with ensureError({{name}}).",
         },
+        schema: [],
+        type: "problem",
     },
 };

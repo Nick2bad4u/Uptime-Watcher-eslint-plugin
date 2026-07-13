@@ -90,8 +90,7 @@ const isBigIntLiteralTypeName = (typeName) => {
 const isLikelyTypeParameterName = (typeName) => /^[A-Z]\w*$/v.test(typeName);
 
 /**
- * @param {
- *     | import("@typescript-eslint/utils").TSESTree.Expression
+ * @param {import("@typescript-eslint/utils").TSESTree.Expression
  *     | import("@typescript-eslint/utils").TSESTree.SpreadElement} arg
  *
  * @returns {arg is import("@typescript-eslint/utils").TSESTree.Expression}
@@ -318,18 +317,18 @@ const loggerContextJsonSerializableRule = createTypedRule({
     },
     defaultOptions: [],
     meta: {
-        type: "problem",
         docs: {
             description:
                 "require logger metadata/context arguments to be JSON-serializable (TypeFest JsonValue-compatible).",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/logger-context-json-serializable.md",
         },
-        schema: [],
         messages: {
             loggerContextMustBeJsonSerializable:
                 "Logger '{{method}}' context/metadata should be JSON-serializable (TypeFest JsonValue-compatible).",
         },
+        schema: [],
+        type: "problem",
     },
     name: "logger-context-json-serializable",
 });

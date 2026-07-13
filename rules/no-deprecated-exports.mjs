@@ -45,11 +45,12 @@ export const noDeprecatedExportsRule = {
             }
 
             const estreeNode = /** @type {import("estree").Node} */ (node);
-            const sourceCodeWithLegacyJsDocAccessor = /**
-             * @type {{
-             *     getJSDocComment?: (node: import("estree").Node) => any;
-             * }}
-             */ (sourceCode);
+            const sourceCodeWithLegacyJsDocAccessor =
+                /**
+                 * @type {{
+                 *     getJSDocComment?: (node: import("estree").Node) => any;
+                 * }}
+                 */ (sourceCode);
 
             if (
                 typeof sourceCodeWithLegacyJsDocAccessor.getJSDocComment ===
@@ -152,17 +153,17 @@ export const noDeprecatedExportsRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "disallow exporting declarations that are annotated with @deprecated",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/no-deprecated-exports.md",
         },
-        schema: [],
         messages: {
             noDeprecatedExports:
                 "Exported declarations must not be marked @deprecated. Remove the tag or explicitly disable this rule if the export must remain deprecated.",
         },
+        schema: [],
+        type: "problem",
     },
 };

@@ -32,7 +32,9 @@ let BASE_MONITOR_TYPES_CACHE = null;
  * Retrieves an ArrayExpression node from an ESTree initializer, unwrapping
  * TypeScript-specific wrappers like `as const`.
  *
- * @param {import("@typescript-eslint/utils").TSESTree.Expression | null | undefined} initializer
+ * @param {import("@typescript-eslint/utils").TSESTree.Expression
+ *     | null
+ *     | undefined} initializer
  *   Initializer node from a variable declaration.
  *
  * @returns {import("@typescript-eslint/utils").TSESTree.ArrayExpression | null}
@@ -256,7 +258,10 @@ export const monitorFallbackConsistencyRule = {
                 }
 
                 /**
-                 * @type {Map<string, import("@typescript-eslint/utils").TSESTree.ObjectExpression>}
+                 * @type {Map<
+                 *     string,
+                 *     import("@typescript-eslint/utils").TSESTree.ObjectExpression
+                 * >}
                  */
                 const optionMap = new Map(),
                     reportedNodes = new Set();
@@ -353,14 +358,12 @@ export const monitorFallbackConsistencyRule = {
     },
 
     meta: {
-        type: "problem",
         docs: {
             description:
                 "require FALLBACK_MONITOR_TYPE_OPTIONS to stay aligned with shared BASE_MONITOR_TYPES",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/monitor-fallback-consistency.md",
         },
-        schema: [],
         messages: {
             duplicateMonitorType:
                 'Monitor type "{{type}}" appears multiple times in FALLBACK_MONITOR_TYPE_OPTIONS.',
@@ -375,5 +378,7 @@ export const monitorFallbackConsistencyRule = {
             valueShouldBeLiteral:
                 'Fallback monitor option "value" must be a string literal for static analysis.',
         },
+        schema: [],
+        type: "problem",
     },
 };

@@ -4,7 +4,9 @@ import {
 } from "../_internal/typed-rule.mjs";
 
 /**
- * @param {import("@typescript-eslint/utils").TSESTree.Expression | null | undefined} node
+ * @param {import("@typescript-eslint/utils").TSESTree.Expression
+ *     | null
+ *     | undefined} node
  */
 const isEnsureErrorCall = (node) => {
     if (!node || node.type !== "CallExpression") {
@@ -17,7 +19,9 @@ const isEnsureErrorCall = (node) => {
 };
 
 /**
- * @param {import("@typescript-eslint/utils").TSESTree.Expression | null | undefined} expression
+ * @param {import("@typescript-eslint/utils").TSESTree.Expression
+ *     | null
+ *     | undefined} expression
  */
 const unwrapEnsureErrorCall = (expression) => {
     if (!expression) {
@@ -144,14 +148,12 @@ const preferEnsureErrorReturnTypeRule = createTypedRule({
     },
     defaultOptions: [],
     meta: {
-        type: "problem",
         docs: {
             description:
                 "require catch variables to remain unknown and ensureError results to stay typed as Error without unsafe recasting.",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/prefer-ensure-error-return-type.md",
         },
-        schema: [],
         messages: {
             catchVariableMustBeUnknown:
                 "Catch variables should remain `unknown` and be normalized via ensureError.",
@@ -160,6 +162,8 @@ const preferEnsureErrorReturnTypeRule = createTypedRule({
             ensureErrorVariableShouldRemainError:
                 "Variables initialized from ensureError(...) should be typed as Error (or inferred), not cast to custom assertion types.",
         },
+        schema: [],
+        type: "problem",
     },
     name: "prefer-ensure-error-return-type",
 });

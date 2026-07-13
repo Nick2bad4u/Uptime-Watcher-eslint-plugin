@@ -16,7 +16,11 @@ export const electronNoConsoleRule = {
     /**
      * @param {{
      *     getFilename: () => string;
-     *     report: (arg0: { data: { method: string }; messageId: string; node: any }) => void;
+     *     report: (arg0: {
+     *         data: { method: string };
+     *         messageId: string;
+     *         node: any;
+     *     }) => void;
      * }} context
      */
     create(context) {
@@ -60,17 +64,17 @@ export const electronNoConsoleRule = {
     },
 
     meta: {
-        type: "suggestion",
         docs: {
             description:
                 "require structured logger usage instead of console in electron runtime code",
             recommended: false,
             url: "https://github.com/Nick2bad4u/Uptime-Watcher/blob/main/config/linting/plugins/uptime-watcher/docs/rules/electron-no-console.md",
         },
-        schema: [],
         messages: {
             preferLogger:
                 "Use the shared logger utilities instead of console.{{method}} in Electron runtime code.",
         },
+        schema: [],
+        type: "suggestion",
     },
 };
