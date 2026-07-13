@@ -1,0 +1,4 @@
+.lychee.report.md
+.lycheecache
+node_modules/
+reports/

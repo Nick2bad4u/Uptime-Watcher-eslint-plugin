@@ -1,0 +1,10 @@
+_internal/
+docs/
+reports/
+rules/
+test/
+plugin.cjs
+plugin.d.cts
+plugin.d.mts
+plugin.mjs
+uptime-watcher.mjs
